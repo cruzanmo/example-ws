@@ -4,7 +4,7 @@
 * Clone repo.
 * Terminal: `npm install`
 * Terminal: `node server.js`
-* Open web page [http://127.0.0.1:8080/]
+* [Open web page](http://127.0.0.1:8080/)
 
 # WebSockets Standards
 * http://www.w3.org/TR/websockets/#the-websocket-interface
