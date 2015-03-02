@@ -8,7 +8,7 @@
   <h3></h3>
   <button>Send message to server</button>
   <button>Close WebSocket</button>
-  <button>Test close event error</button>
+  <button>Test close event errors</button>
   <script>
     'use strict';
     
@@ -49,10 +49,15 @@
       ws.close();
     });
     document.querySelectorAll('button')[2].addEventListener('click', function () {
-      var invalidCode = 1000;
+      var invalidCode = 1001;
       var invalidReason = '♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥';
       try {
-        ws.close(invalidCode, invalidReason);
+        ws.close(invalidCode);
+      } catch (error) {
+        document.body.innerHTML += '<p>' + error + '</p>';
+      }
+      try {
+        ws.close(1000, invalidReason);
       } catch (error) {
         document.body.innerHTML += '<p>' + error + '</p>';
       }
