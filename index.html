@@ -1,0 +1,63 @@
+<html>
+<head>
+</head>
+<body>
+  <h1>Basic WebSockets Example</h1>
+  <h2>The Server Says:</h2>
+  <h2></h2>
+  <h3></h3>
+  <button>Send message to server</button>
+  <button>Close WebSocket</button>
+  <button>Test close event error</button>
+  <script>
+    'use strict';
+    
+    // Open WebSocket on a new port.
+    var host = window.document.location.host.replace(/:.*/, '');
+    var port = 8000;
+    var ws = new WebSocket('ws://' + host + ':' + port);
+    function printStatus(status) {
+      status += '<br>' + 
+                'readyState: ' + ws.readyState + '<br>' +
+                'bufferedAmount: ' + ws.bufferedAmount + '<br>' +
+                'extensionsws: ' + ws.extensions + '<br>' +
+                'protocol: ' + ws.protocol + '<br>' +
+                'binaryType: ' + ws.binaryType;
+      document.querySelector('h3').innerHTML = status;
+    }
+    
+    // WebSocket Events.
+    ws.addEventListener('message', function print(messageEvent) {
+      var message = messageEvent.data;
+      document.querySelectorAll('h2')[1].innerHTML = message;
+    });
+    ws.addEventListener('open', function (event) {
+      printStatus('The connection is open.');
+    });
+    ws.addEventListener('close', function (event) {
+      printStatus('The connection is closed.');
+    });
+    ws.addEventListener('error', function (event) {
+      printStatus('There was an error.');
+    });
+    
+    // WebSocket Methods.
+    document.querySelector('button').addEventListener('click', function () {
+      ws.send('Hi server, I am the client.');
+    });
+    document.querySelectorAll('button')[1].addEventListener('click', function () {
+      ws.close();
+    });
+    document.querySelectorAll('button')[2].addEventListener('click', function () {
+      var invalidCode = 1000;
+      var invalidReason = '♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥♥';
+      try {
+        ws.close(invalidCode, invalidReason);
+      } catch (error) {
+        document.body.innerHTML += '<p>' + error + '</p>';
+      }
+    });
+
+  </script>
+</body>
+</html>

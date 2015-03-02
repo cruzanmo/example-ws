@@ -1,0 +1,8 @@
+{
+  "name": "eg-ws",
+  "version": "0.0.1",
+  "dependencies": {
+    "ws": "^0.7.1",
+    "express": "^4.12.0"
+  }
+}
